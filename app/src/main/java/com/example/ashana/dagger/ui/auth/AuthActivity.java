@@ -7,13 +7,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import androidx.constraintlayout.motion.utils.ViewState;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.RequestManager;
 import com.example.ashana.dagger.R;
 import com.example.ashana.dagger.model.User;
+import com.example.ashana.dagger.ui.AuthResource;
+import com.example.ashana.dagger.util.NetworkResponseUtils;
 import com.example.ashana.dagger.viewmodel.ViewModelProvidersFactory;
 
 import javax.inject.Inject;
@@ -25,6 +29,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
     private static final String TAG = "AuthActivity";
     EditText etUserID;
+    ProgressBar progressBar;
 
     private AuthViewModel ViewModel;
 
@@ -47,6 +52,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
         etUserID = findViewById(R.id.user_id_input);
         findViewById(R.id.login_button).setOnClickListener(this);
+        progressBar = findViewById(R.id.progress_bar);
 
         ViewModel = new ViewModelProvider(this, providersFactory).get(AuthViewModel.class);
         setLogo();
@@ -54,10 +60,37 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     }
 
     private void observingUserDetails() {
-        ViewModel.getUser().observe(this, user -> {
-            if (user != null)
-                Log.d(TAG, "observingUserDetails: user name - "+user.getUsername());
+        ViewModel.getUser().observe(this, new Observer<NetworkResponseUtils<User>>() {
+            @Override
+            public void onChanged(NetworkResponseUtils<User> userAuthResource) {
+                if (userAuthResource != null) {
+                    switch (userAuthResource.status) {
+                        case SUCCESS:
+                            updateProgressBar(true);
+                            Log.d(TAG, "onChanged: authenticated success");
+                            break;
+                        case EXCEPTION:
+                            updateProgressBar(true);
+                            Log.d(TAG, "onChanged: not authenticated");
+                            break;
+                        case ERROR:
+                            updateProgressBar(true);
+                            Log.d(TAG, "onChanged: error while loading data");
+                            break;
+                        case LOADING:
+                            updateProgressBar(false);
+                            break;
+                    }
+                }
+            }
         });
+    }
+
+    private void updateProgressBar(boolean isShowing) {
+        if (isShowing)
+            progressBar.setVisibility(View.GONE);
+        else
+            progressBar.setVisibility(View.VISIBLE);
     }
 
     private void setLogo() {
