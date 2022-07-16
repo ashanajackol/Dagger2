@@ -3,6 +3,7 @@ package com.example.ashana.dagger.di;
 import android.app.Application;
 
 import com.example.ashana.dagger.BaseApplication;
+import com.example.ashana.dagger.SessionManager;
 import com.example.ashana.dagger.di.auth.AuthViewModelModule;
 
 import javax.inject.Singleton;
@@ -20,6 +21,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ViewModelFactoryModule.class,
 })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
+
+    SessionManager sessionManager();
 
     @Component.Builder
     interface Builder {
