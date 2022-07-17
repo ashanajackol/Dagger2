@@ -1,5 +1,6 @@
 package com.example.ashana.dagger.ui.auth;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.ashana.dagger.R;
 import com.example.ashana.dagger.model.User;
 import com.example.ashana.dagger.ui.AuthResource;
+import com.example.ashana.dagger.ui.main.MainActivity;
 import com.example.ashana.dagger.util.NetworkResponseUtils;
 import com.example.ashana.dagger.viewmodel.ViewModelProvidersFactory;
 
@@ -67,7 +69,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                     switch (userAuthResource.status) {
                         case SUCCESS:
                             updateProgressBar(true);
-                            Log.d(TAG, "onChanged: authenticated success");
+                            navigateToMainActivity();
                             break;
                         case EXCEPTION:
                             updateProgressBar(true);
@@ -84,6 +86,11 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                 }
             }
         });
+    }
+
+    private void navigateToMainActivity(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void updateProgressBar(boolean isShowing) {

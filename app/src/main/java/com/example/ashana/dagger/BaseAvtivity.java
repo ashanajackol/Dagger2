@@ -2,6 +2,7 @@ package com.example.ashana.dagger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -13,12 +14,15 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public abstract class BaseAvtivity extends DaggerAppCompatActivity {
 
+    private static final String TAG = "BaseAvtivity";
+
     @Inject
-    SessionManager sessionManager;
+    public SessionManager sessionManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getObservers();
     }
 
     public void getObservers(){
@@ -29,7 +33,7 @@ public abstract class BaseAvtivity extends DaggerAppCompatActivity {
                 case ERROR:
                     break;
                 case LOGOUT:
-                    navigateToLogin();
+                    logoutUser();
                     break;
                 case LOADING:
                     break;
@@ -39,7 +43,8 @@ public abstract class BaseAvtivity extends DaggerAppCompatActivity {
         });
     }
 
-    public void navigateToLogin(){
+    public void logoutUser(){
+        Log.d(TAG, "logoutUser: ");
         startActivity(new Intent(this, AuthActivity.class));
         finish();
     }
