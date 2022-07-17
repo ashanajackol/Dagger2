@@ -8,7 +8,6 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class MainFragmentBuilderModule {
 
-    @ContributesAndroidInjector (modules = {
-            MainViewModleModule.class })
+    @ContributesAndroidInjector ()
     abstract ProfileFragment contributeProfileFragment();
 }
