@@ -34,9 +34,13 @@ public class ProfileFragment extends DaggerFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         view = inflater.inflate(R.layout.fragment_profile,container,false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ViewModel = new ViewModelProvider(this, factory).get(ProfileViewModel.class);
         getUserDetails();
-        return view;
     }
 
     private  void getUserDetails() {

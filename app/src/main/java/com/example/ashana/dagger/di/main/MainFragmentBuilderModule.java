@@ -1,5 +1,6 @@
 package com.example.ashana.dagger.di.main;
 
+import com.example.ashana.dagger.ui.fragment.post.PostsFragment;
 import com.example.ashana.dagger.ui.fragment.profile.ProfileFragment;
 
 import dagger.Module;
@@ -10,4 +11,7 @@ public abstract class MainFragmentBuilderModule {
 
     @ContributesAndroidInjector ()
     abstract ProfileFragment contributeProfileFragment();
+
+    @ContributesAndroidInjector
+    abstract PostsFragment contributePostFragment();
 }

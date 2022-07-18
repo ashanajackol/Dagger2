@@ -3,6 +3,7 @@ package com.example.ashana.dagger.di;
 import com.example.ashana.dagger.di.auth.AuthModule;
 import com.example.ashana.dagger.di.auth.AuthViewModelModule;
 import com.example.ashana.dagger.di.main.MainFragmentBuilderModule;
+import com.example.ashana.dagger.di.main.MainModule;
 import com.example.ashana.dagger.di.main.MainViewModleModule;
 import com.example.ashana.dagger.ui.auth.AuthActivity;
 import com.example.ashana.dagger.ui.main.MainActivity;
@@ -20,6 +21,7 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector (modules = {
             MainFragmentBuilderModule.class,
-            MainViewModleModule.class})
+            MainViewModleModule.class,
+            MainModule.class})
     abstract MainActivity contributeMainActivity();
 }

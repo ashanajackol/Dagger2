@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.ashana.dagger.BaseAvtivity;
 import com.example.ashana.dagger.R;
-import com.example.ashana.dagger.ui.fragment.profile.ProfileFragment;
+import com.example.ashana.dagger.ui.fragment.post.PostsFragment;
 
 public class MainActivity extends BaseAvtivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends BaseAvtivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_frame, new ProfileFragment())
+                .replace(R.id.main_frame, new PostsFragment())
                 .commit();
     }
 
