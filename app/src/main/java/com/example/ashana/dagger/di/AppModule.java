@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.ashana.dagger.R;
+import com.example.ashana.dagger.model.User;
 import com.example.ashana.dagger.util.Constants;
 
 import javax.inject.Singleton;
@@ -36,12 +37,18 @@ public class AppModule {
 
     @Singleton
     @Provides
-    static Retrofit provideRetrofitInstance(){
+    static Retrofit provideRetrofitInstance() {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //retrofit rx java adapter library
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+    @Singleton
+    @Provides
+    static User getUser() {
+        return new User();
     }
 
 }

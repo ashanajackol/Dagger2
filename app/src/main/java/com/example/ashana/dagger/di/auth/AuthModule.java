@@ -1,5 +1,6 @@
 package com.example.ashana.dagger.di.auth;
 
+import com.example.ashana.dagger.di.scope.AuthScope;
 import com.example.ashana.dagger.network.auth.AuthApi;
 
 import dagger.Module;
@@ -9,6 +10,7 @@ import retrofit2.Retrofit;
 @Module
 public class AuthModule {
 
+    @AuthScope
     @Provides
     static AuthApi provideAuthApi(Retrofit retrofit) {
         return  retrofit.create(AuthApi.class);
